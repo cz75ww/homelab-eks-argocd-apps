@@ -5,4 +5,6 @@
 .helmignore
 
 # .git
-.git/
+.git/# Hidden files and directories
+.*
+!.gitignore
