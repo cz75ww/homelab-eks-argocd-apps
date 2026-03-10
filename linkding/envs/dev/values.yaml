@@ -11,6 +11,8 @@ mountPoint: /etc/linkding/data/
 
 # Persistent volumes & Pesistent volume Claims
 scName: ebs-sc
+provisioner: ebs.csi.aws.com
+diskType: gp3
 accessModesType: ReadWriteMany
 storageSize: 10Gi
 storageArea: /home/ubuntu/volumes/linkding
