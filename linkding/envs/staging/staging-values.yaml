@@ -1,0 +1,15 @@
+# Variables for dev linkding self-host container application
+# Helm tutorial
+
+
+env: dev
+appName: linkding
+volumeName: volume
+containerPortNumber: 9090
+imageRelease: sissbruecker/linkding:1.39.1
+replicasCount: 2
+persistentVolumeClaim: pvc
+persistentVolume: pv
+mountPoint: /etc/linkding/data/ 
+
+

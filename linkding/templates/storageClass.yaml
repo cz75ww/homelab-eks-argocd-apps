@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ .Values.scName }}
+provisioner: {{ .Values.provisioner }}  
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+parameters:
+  type: {{ .Values.diskType }}
+  csi.storage.k8s.io/fstype: ext4
+  tagSpecification_1: "Name={{ .PVCNamespace }}-{{ .PVCName }}"
+  tagSpecification_2: "Environment=dev"
