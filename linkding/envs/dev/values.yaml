@@ -1,22 +1,21 @@
-# Variables for dev linkding self-host container application
-# Helm tutorial
-
 # Deployment
 env: dev
 appName: linkding
 volumeName: volume
 containerPortNumber: 9090
 imageRelease: sissbruecker/linkding:1.39.1
-replicasCount: 2
+replicasCount: 1
 persistentVolumeClaim: pvc
 persistentVolume: pv
 mountPoint: /etc/linkding/data/
 
 # Persistent volumes & Pesistent volume Claims
 scName: ebs-sc
-provisioner: ebs.csi.aws.com
-diskType: gp3
 accessModesType: ReadWriteMany
-storageSize: 1Gi
+storageSize: 10Gi
 storageArea: /home/ubuntu/volumes/linkding
 requestStorageSize: 500Mi
+
+ingress:
+  hostname: linkding.fpsouzastudyk8s.com
+  port: 9090
