@@ -1,0 +1,32 @@
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: "{{ .Values.env }}-default"
+  labels:
+    environment: "{{ .Values.env }}"
+    cluster: "{{ .Values.clusterName }}"
+spec:
+  template:
+    metadata:
+      labels:
+        environment: "{{ .Values.env }}"
+    spec:
+      requirements:
+        - key: kubernetes.io/arch
+          operator: In
+          values: ["{{ .Values.arch }}"]
+        - key: kubernetes.io/os
+          operator: In
+          values: ["{{ .Values.os }}"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["{{ .Values.capacityType }}"]
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: "{{ .Values.env }}-default"
+  limits:
+    cpu: {{ .Values.cpuLimit }}
+  disruption:
+    consolidationPolicy: "{{ .Values.consolidationPolicy }}"
+    consolidateAfter: "{{ .Values.consolidateAfter }}"

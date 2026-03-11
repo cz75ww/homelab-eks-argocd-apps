@@ -1,0 +1,22 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: "{{ .Values.env }}-default"
+  labels:
+    environment: "{{ .Values.env }}"
+    cluster: "{{ .Values.clusterName }}"
+spec:
+  amiFamily: "{{ .Values.amiFamily }}"
+  amiSelectorTerms:
+    - alias: "{{ .Values.amiAlias }}"
+  role: "{{ .Values.nodeRole }}"
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "{{ .Values.discoveryTag }}"
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "{{ .Values.discoveryTag }}"
+  tags:
+    environment: "{{ .Values.env }}"
+    cluster: "{{ .Values.clusterName }}"
+

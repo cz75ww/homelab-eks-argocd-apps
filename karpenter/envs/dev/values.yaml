@@ -1,0 +1,16 @@
+env: dev
+clusterName: dev-demo
+
+# EC2NodeClass
+amiFamily: AL2023
+amiAlias: al2023@latest
+nodeRole: "dev-demo-karpenter-node"
+discoveryTag: "dev-demo"
+
+# NodePool
+arch: amd64
+os: linux
+capacityType: on-demand
+cpuLimit: 100
+consolidationPolicy: WhenEmptyOrUnderutilized
+consolidateAfter: 1m
