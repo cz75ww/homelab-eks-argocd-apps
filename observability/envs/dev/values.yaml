@@ -1,0 +1,37 @@
+# Service Account
+serviceAccount:
+  roleArn: "" # empty - using Pod Identity
+
+# AMP
+amp:
+  workspaceUrl: "" # e.g. https://aps-workspaces.eu-west-1.amazonaws.com/workspaces/ws-xxxxx/
+
+# Receivers
+receivers:
+  otlp:
+    grpc:
+      endpoint: "0.0.0.0:4317"
+    http:
+      endpoint: "0.0.0.0:4318"
+
+# Exporters
+exporters:
+  prometheus:
+    enabled: true
+    endpoint: "0.0.0.0:8889"
+  amp:
+    enabled: true
+  cloudwatch:
+    enabled: false
+  xray:
+    enabled: false
+
+# Processors
+processors:
+  batch:
+    timeout: "5s"
+    sendBatchSize: 1000
+  memory_limiter:
+    checkInterval: "1s"
+    limitMib: 200
+    spikeLimitMib: 50
