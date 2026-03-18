@@ -1,12 +1,10 @@
-# Service Account
+# ADOT Collector config
 serviceAccount:
-  roleArn: "" # empty - using Pod Identity
+  roleArn: ""
 
-# AMP
 amp:
-  workspaceUrl: "" # e.g. https://aps-workspaces.eu-west-1.amazonaws.com/workspaces/ws-xxxxx/
+  workspaceUrl: ""
 
-# Receivers
 receivers:
   otlp:
     grpc:
@@ -14,7 +12,6 @@ receivers:
     http:
       endpoint: "0.0.0.0:4318"
 
-# Exporters
 exporters:
   prometheus:
     enabled: true
@@ -26,7 +23,6 @@ exporters:
   xray:
     enabled: false
 
-# Processors
 processors:
   batch:
     timeout: "5s"
@@ -35,3 +31,29 @@ processors:
     checkInterval: "1s"
     limitMib: 200
     spikeLimitMib: 50
+
+# kube-prometheus-stack subchart values
+kube-prometheus-stack:
+  grafana:
+    enabled: true
+    adminPassword: "admin"
+    ingress:
+      enabled: true
+      ingressClassName: alb
+      annotations:
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/target-type: ip
+      hosts:
+        - grafana.studyk8s.com
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      remoteWrite:
+        - url: ""
+  kube-state-metrics:
+    enabled: false
+  prometheus-node-exporter:
+    enabled: false
+  alertmanager:
+    enabled: false
