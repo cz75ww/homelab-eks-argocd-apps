@@ -32,30 +32,26 @@ processors:
     limitMib: 200
     spikeLimitMib: 50
 
-# kube-prometheus-stack subchart values
-kube-prometheus-stack:
-  nodeExporter:
-    enabled: false # already have as EKS addon
-  grafana:
+# Standalone Grafana
+grafana:
+  adminPassword: "admin"
+  ingress:
     enabled: true
-    adminPassword: "admin"
-    ingress:
-      enabled: true
-      ingressClassName: alb
-      annotations:
-        alb.ingress.kubernetes.io/scheme: internet-facing
-        alb.ingress.kubernetes.io/target-type: ip
-      hosts:
-        - grafana.studyk8s.com
-  prometheus:
-    prometheusSpec:
-      serviceMonitorSelectorNilUsesHelmValues: false
-      podMonitorSelectorNilUsesHelmValues: false
-      remoteWrite:
-        - url: ""
-  kube-state-metrics:
-    enabled: false
-  prometheus-node-exporter:
-    enabled: false
-  alertmanager:
-    enabled: false
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+    hosts:
+      - grafana.studyk8s.com
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: AMP
+          type: prometheus
+          url: "" # your AMP workspace endpoint
+          isDefault: true
+          jsonData:
+            sigV4Auth: true
+            sigV4Region: eu-west-1
+            sigV4AuthType: ec2_iam_role
