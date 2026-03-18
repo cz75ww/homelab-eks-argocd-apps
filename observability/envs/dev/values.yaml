@@ -1,37 +1,3 @@
-# ADOT Collector config
-serviceAccount:
-  roleArn: ""
-
-amp:
-  workspaceUrl: ""
-
-receivers:
-  otlp:
-    grpc:
-      endpoint: "0.0.0.0:4317"
-    http:
-      endpoint: "0.0.0.0:4318"
-
-exporters:
-  prometheus:
-    enabled: true
-    endpoint: "0.0.0.0:8889"
-  amp:
-    enabled: true
-  cloudwatch:
-    enabled: false
-  xray:
-    enabled: false
-
-processors:
-  batch:
-    timeout: "5s"
-    sendBatchSize: 1000
-  memory_limiter:
-    checkInterval: "1s"
-    limitMib: 200
-    spikeLimitMib: 50
-
 # Standalone Grafana
 grafana:
   adminPassword: "admin"
