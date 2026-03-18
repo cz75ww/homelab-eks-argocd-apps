@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.scName }}
 provisioner: {{ .Values.provisioner }}
 volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Retain
+reclaimPolicy: Delete #Retain
 parameters:
   type: {{ .Values.diskType }}
   csi.storage.k8s.io/fstype: ext4
