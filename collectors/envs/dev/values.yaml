@@ -1,4 +1,4 @@
 env: dev
 clusterName: eks-dev-demo
 region: us-east-1
-ampEndpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-83b09c10-4555-44b3-bd5e-1d0f83f0eb0a/api/v1/remote_write
+ampEndpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-c5946b76-cf52-4ac2-a6a3-c652f3d2c069/api/v1/remote_write
