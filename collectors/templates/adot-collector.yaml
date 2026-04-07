@@ -1,0 +1,49 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: adot-collector
+  namespace: opentelemetry-operator-system
+spec:
+  mode: deployment
+  serviceAccount: opentelemetry-operator
+  config: |
+    receivers:
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: 'node-exporter'
+              scrape_interval: 30s
+              static_configs:
+                - targets: ['prometheus-node-exporter.prometheus-node-exporter.svc:9100']
+            - job_name: 'kube-state-metrics'
+              scrape_interval: 30s
+              static_configs:
+                - targets: ['kube-state-metrics.kube-state-metrics.svc:8080']
+    processors:
+      batch: {}
+      memory_limiter:
+        check_interval: 5s
+        limit_mib: 256
+      resource:
+        attributes:
+        - action: insert
+          key: cluster
+          value: {{ .Values.clusterName }}
+    exporters:
+      prometheusremotewrite:
+        endpoint: {{ .Values.ampEndpoint }}
+        auth:
+          authenticator: sigv4auth
+        resource_to_telemetry_conversion:
+          enabled: true
+    extensions:
+      sigv4auth:
+        region: {{ .Values.region }}
+        service: aps
+    service:
+      extensions: [sigv4auth]
+      pipelines:
+        metrics:
+          receivers: [prometheus]
+          processors: [memory_limiter, batch, resource]
+          exporters: [prometheusremotewrite]
