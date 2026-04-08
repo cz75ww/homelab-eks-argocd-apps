@@ -18,3 +18,5 @@ data:
           sigV4Auth: true
           sigV4AuthType: ec2_iam_role
           sigV4Region: {{ .Values.amp.region }}
+          prometheusVersion: "2.40.0"
+          prometheusType: Prometheus
