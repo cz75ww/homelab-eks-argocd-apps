@@ -6,6 +6,10 @@ grafana:
   namespace: grafana
   hostname: grafana.studyk8s.com
 
+grafana.ini:
+  auth:
+    sigv4_auth_enabled: true
+
 collector:
   serviceAccount: opentelemetry-operator
   namespace: opentelemetry-operator-system
