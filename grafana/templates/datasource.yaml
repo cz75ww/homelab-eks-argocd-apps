@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasource-amp
+  namespace: {{ .Values.grafana.namespace }}
+  labels:
+    grafana_datasource: "1"
+data:
+  amp-datasource.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: AMP
+        type: prometheus
+        url: {{ .Values.amp.endpoint }}
+        isDefault: true
+        jsonData:
+          httpMethod: POST
+          sigV4Auth: true
+          sigV4AuthType: ec2_iam_role
+          sigV4Region: {{ .Values.amp.region }}

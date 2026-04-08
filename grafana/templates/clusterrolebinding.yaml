@@ -8,5 +8,5 @@ roleRef:
   name: otel-collector-cluster-role
 subjects:
   - kind: ServiceAccount
-    name: adot-collector
-    namespace: {{ .Release.Namespace }}
+    name: {{ .Values.collector.serviceAccount }}
+    namespace: {{ .Values.collector.namespace }}
