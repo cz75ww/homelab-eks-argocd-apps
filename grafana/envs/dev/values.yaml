@@ -1,5 +1,5 @@
 amp:
-  endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-5106f95e-31f8-4536-92a8-a804d37d2807
+  endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-5106f95e-31f8-4536-92a8-a804d37d2807/api/v1/query
   region: us-east-1
 
 grafana:
