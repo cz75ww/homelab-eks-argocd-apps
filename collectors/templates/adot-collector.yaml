@@ -14,11 +14,11 @@ spec:
             - job_name: 'node-exporter'
               scrape_interval: 30s
               static_configs:
-                - targets: ['prometheus-node-exporter.prometheus-node-exporter.svc:9100']
+                - targets: ['{{ .Values.nodeExporterEndpoint }}']
             - job_name: 'kube-state-metrics'
               scrape_interval: 30s
               static_configs:
-                - targets: ['kube-state-metrics.kube-state-metrics.svc:8080']
+                - targets: ['{{ .Values.kubeStateMetricsEndpoint }}']
     processors:
       batch: {}
       memory_limiter:

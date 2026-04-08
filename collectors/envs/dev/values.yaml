@@ -5,3 +5,5 @@ region: us-east-1
 # Run the following steps to get new workspace endpoint:
 ## cd /app/infra/aws/envs/dev/platform/eks-addons ; terragrunt output amp_workspace_endpoint
 ampEndpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-5106f95e-31f8-4536-92a8-a804d37d2807/api/v1/remote_write
+nodeExporterEndpoint: prometheus-node-exporter.prometheus-node-exporter.svc.cluster.local:9100
+kubeStateMetricsEndpoint: kube-state-metrics.kube-state-metrics.svc.cluster.local:8080
