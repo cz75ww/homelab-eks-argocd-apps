@@ -14,22 +14,22 @@ spec:
             - job_name: 'node-exporter'
               scrape_interval: 30s
               kubernetes_sd_configs:
-                - role: endpoints
+                - role: endpointslice
                   namespaces:
                     names: ['prometheus-node-exporter']
               relabel_configs:
-                - source_labels: [__meta_kubernetes_pod_node_name]
+                - source_labels: [__meta_kubernetes_endpointslice_endpoint_node_name]
                   target_label: node
-                - source_labels: [__meta_kubernetes_endpoint_node_name]
+                - source_labels: [__meta_kubernetes_endpointslice_endpoint_node_name]
                   target_label: instance
             - job_name: 'kube-state-metrics'
               scrape_interval: 30s
               kubernetes_sd_configs:
-                - role: endpoints
+                - role: endpointslice
                   namespaces:
                     names: ['kube-state-metrics']
               relabel_configs:
-                - source_labels: [__meta_kubernetes_endpoint_node_name]
+                - source_labels: [__meta_kubernetes_endpointslice_endpoint_node_name]
                   target_label: instance
     processors:
       batch: {}
