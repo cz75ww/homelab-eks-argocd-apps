@@ -23,7 +23,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana
+  name: grafana-custom-config
   namespace: {{ .Values.grafana.namespace }}
 data:
   grafana.ini: |
