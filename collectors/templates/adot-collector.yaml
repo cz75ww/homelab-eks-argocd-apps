@@ -13,12 +13,24 @@ spec:
           scrape_configs:
             - job_name: 'node-exporter'
               scrape_interval: 30s
-              static_configs:
-                - targets: ['{{ .Values.nodeExporterEndpoint }}']
+              kubernetes_sd_configs:
+                - role: endpoints
+                  namespaces:
+                    names: ['prometheus-node-exporter']
+              relabel_configs:
+                - source_labels: [__meta_kubernetes_pod_node_name]
+                  target_label: node
+                - source_labels: [__meta_kubernetes_endpoint_node_name]
+                  target_label: instance
             - job_name: 'kube-state-metrics'
               scrape_interval: 30s
-              static_configs:
-                - targets: ['{{ .Values.kubeStateMetricsEndpoint }}']
+              kubernetes_sd_configs:
+                - role: endpoints
+                  namespaces:
+                    names: ['kube-state-metrics']
+              relabel_configs:
+                - source_labels: [__meta_kubernetes_endpoint_node_name]
+                  target_label: instance
     processors:
       batch: {}
       memory_limiter:
@@ -26,9 +38,9 @@ spec:
         limit_mib: 256
       resource:
         attributes:
-        - action: insert
-          key: cluster
-          value: {{ .Values.clusterName }}
+          - action: insert
+            key: cluster
+            value: {{ .Values.clusterName }}
     exporters:
       prometheusremotewrite:
         endpoint: {{ .Values.ampEndpoint }}
