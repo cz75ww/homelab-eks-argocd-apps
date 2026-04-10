@@ -20,3 +20,8 @@ data:
           sigV4Region: {{ .Values.amp.region }}
           prometheusVersion: "2.40.0"
           prometheusType: Prometheus
+          manageAlerts: false
+          incrementalQuerying: false
+          disableMetricsLookup: false
+          customQueryParameters: ""
+        editable: false
