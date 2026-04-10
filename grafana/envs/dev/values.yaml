@@ -5,14 +5,13 @@ amp:
 grafana:
   namespace: grafana
   hostname: grafana.studyk8s.com
-
-grafana.ini:
-  analytics:
-    check_for_updates: true
-  auth:
-    sigv4_auth_enabled: true
-  log:
-    mode: console
+  grafana.ini:
+    analytics:
+      check_for_updates: true
+    auth:
+      sigv4_auth_enabled: true
+    log:
+      mode: console
 
 collector:
   serviceAccount: opentelemetry-operator
